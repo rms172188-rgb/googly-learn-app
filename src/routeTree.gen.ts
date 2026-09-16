@@ -13,7 +13,9 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as StaffLoginRouteImport } from './routes/staff-login'
+import { Route as AdminSectionRouteImport } from './routes/admin.$section'
 import { Route as AppSectionRouteImport } from './routes/app.$section'
+import { Route as TeacherSectionRouteImport } from './routes/teacher.$section'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -35,9 +37,19 @@ const StaffLoginRoute = StaffLoginRouteImport.update({
   path: '/staff-login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminSectionRoute = AdminSectionRouteImport.update({
+  id: '/admin/$section',
+  path: '/admin/$section',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AppSectionRoute = AppSectionRouteImport.update({
   id: '/app/$section',
   path: '/app/$section',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeacherSectionRoute = TeacherSectionRouteImport.update({
+  id: '/teacher/$section',
+  path: '/teacher/$section',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -46,14 +58,18 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/staff-login': typeof StaffLoginRoute
+  '/admin/$section': typeof AdminSectionRoute
   '/app/$section': typeof AppSectionRoute
+  '/teacher/$section': typeof TeacherSectionRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/staff-login': typeof StaffLoginRoute
+  '/admin/$section': typeof AdminSectionRoute
   '/app/$section': typeof AppSectionRoute
+  '/teacher/$section': typeof TeacherSectionRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -61,15 +77,38 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/staff-login': typeof StaffLoginRoute
+  '/admin/$section': typeof AdminSectionRoute
   '/app/$section': typeof AppSectionRoute
+  '/teacher/$section': typeof TeacherSectionRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/register' | '/staff-login' | '/app/$section'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/register'
+    | '/staff-login'
+    | '/admin/$section'
+    | '/app/$section'
+    | '/teacher/$section'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/register' | '/staff-login' | '/app/$section'
+  to:
+    | '/'
+    | '/login'
+    | '/register'
+    | '/staff-login'
+    | '/admin/$section'
+    | '/app/$section'
+    | '/teacher/$section'
   id:
-    '__root__' | '/' | '/login' | '/register' | '/staff-login' | '/app/$section'
+    | '__root__'
+    | '/'
+    | '/login'
+    | '/register'
+    | '/staff-login'
+    | '/admin/$section'
+    | '/app/$section'
+    | '/teacher/$section'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,7 +116,9 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
   StaffLoginRoute: typeof StaffLoginRoute
+  AdminSectionRoute: typeof AdminSectionRoute
   AppSectionRoute: typeof AppSectionRoute
+  TeacherSectionRoute: typeof TeacherSectionRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -110,11 +151,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StaffLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/$section': {
+      id: '/admin/$section'
+      path: '/admin/$section'
+      fullPath: '/admin/$section'
+      preLoaderRoute: typeof AdminSectionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/app/$section': {
       id: '/app/$section'
       path: '/app/$section'
       fullPath: '/app/$section'
       preLoaderRoute: typeof AppSectionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teacher/$section': {
+      id: '/teacher/$section'
+      path: '/teacher/$section'
+      fullPath: '/teacher/$section'
+      preLoaderRoute: typeof TeacherSectionRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -125,7 +180,9 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
   StaffLoginRoute: StaffLoginRoute,
+  AdminSectionRoute: AdminSectionRoute,
   AppSectionRoute: AppSectionRoute,
+  TeacherSectionRoute: TeacherSectionRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
