@@ -10,33 +10,115 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as RegisterRouteImport } from './routes/register'
+import { Route as StaffLoginRouteImport } from './routes/staff-login'
+import { Route as AdminSectionRouteImport } from './routes/admin.$section'
+import { Route as AppSectionRouteImport } from './routes/app.$section'
+import { Route as TeacherSectionRouteImport } from './routes/teacher.$section'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StaffLoginRoute = StaffLoginRouteImport.update({
+  id: '/staff-login',
+  path: '/staff-login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminSectionRoute = AdminSectionRouteImport.update({
+  id: '/admin/$section',
+  path: '/admin/$section',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppSectionRoute = AppSectionRouteImport.update({
+  id: '/app/$section',
+  path: '/app/$section',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeacherSectionRoute = TeacherSectionRouteImport.update({
+  id: '/teacher/$section',
+  path: '/teacher/$section',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/staff-login': typeof StaffLoginRoute
+  '/admin/$section': typeof AdminSectionRoute
+  '/app/$section': typeof AppSectionRoute
+  '/teacher/$section': typeof TeacherSectionRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/staff-login': typeof StaffLoginRoute
+  '/admin/$section': typeof AdminSectionRoute
+  '/app/$section': typeof AppSectionRoute
+  '/teacher/$section': typeof TeacherSectionRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/staff-login': typeof StaffLoginRoute
+  '/admin/$section': typeof AdminSectionRoute
+  '/app/$section': typeof AppSectionRoute
+  '/teacher/$section': typeof TeacherSectionRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/register'
+    | '/staff-login'
+    | '/admin/$section'
+    | '/app/$section'
+    | '/teacher/$section'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/login'
+    | '/register'
+    | '/staff-login'
+    | '/admin/$section'
+    | '/app/$section'
+    | '/teacher/$section'
+  id:
+    | '__root__'
+    | '/'
+    | '/login'
+    | '/register'
+    | '/staff-login'
+    | '/admin/$section'
+    | '/app/$section'
+    | '/teacher/$section'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LoginRoute: typeof LoginRoute
+  RegisterRoute: typeof RegisterRoute
+  StaffLoginRoute: typeof StaffLoginRoute
+  AdminSectionRoute: typeof AdminSectionRoute
+  AppSectionRoute: typeof AppSectionRoute
+  TeacherSectionRoute: typeof TeacherSectionRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +130,59 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/staff-login': {
+      id: '/staff-login'
+      path: '/staff-login'
+      fullPath: '/staff-login'
+      preLoaderRoute: typeof StaffLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/$section': {
+      id: '/admin/$section'
+      path: '/admin/$section'
+      fullPath: '/admin/$section'
+      preLoaderRoute: typeof AdminSectionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/$section': {
+      id: '/app/$section'
+      path: '/app/$section'
+      fullPath: '/app/$section'
+      preLoaderRoute: typeof AppSectionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teacher/$section': {
+      id: '/teacher/$section'
+      path: '/teacher/$section'
+      fullPath: '/teacher/$section'
+      preLoaderRoute: typeof TeacherSectionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LoginRoute: LoginRoute,
+  RegisterRoute: RegisterRoute,
+  StaffLoginRoute: StaffLoginRoute,
+  AdminSectionRoute: AdminSectionRoute,
+  AppSectionRoute: AppSectionRoute,
+  TeacherSectionRoute: TeacherSectionRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
