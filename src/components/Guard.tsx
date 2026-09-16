@@ -14,8 +14,11 @@ export function RequireRole({ roles, children }: { roles: Role[]; children: Reac
       return;
     }
     if (role && !roles.includes(role)) {
-      const home = role === "super_admin" ? "/admin/dashboard" : role === "teacher" ? "/teacher/dashboard" : "/app/home";
-      void navigate({ to: home, replace: true });
+      if (role === "super_admin")
+        void navigate({ to: "/admin/$section", params: { section: "dashboard" }, replace: true });
+      else if (role === "teacher")
+        void navigate({ to: "/teacher/$section", params: { section: "dashboard" }, replace: true });
+      else void navigate({ to: "/app/$section", params: { section: "home" }, replace: true });
     }
   }, [loading, session, role, roles, navigate]);
 

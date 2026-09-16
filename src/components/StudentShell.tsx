@@ -23,20 +23,20 @@ import { Sheet } from "@/components/common";
 import { cn } from "@/lib/utils";
 
 const moreItems = [
-  { to: "/app/attendance", label: "Attendance", icon: CheckSquare },
-  { to: "/app/results", label: "Results", icon: Trophy },
-  { to: "/app/exams", label: "Exams", icon: ClipboardList },
-  { to: "/app/homework", label: "Homework", icon: BookOpen },
-  { to: "/app/materials", label: "Materials", icon: FileText },
-  { to: "/app/fees", label: "Fees", icon: Wallet },
-  { to: "/app/profile", label: "Profile", icon: User },
+  { section: "attendance", label: "Attendance", icon: CheckSquare },
+  { section: "results", label: "Results", icon: Trophy },
+  { section: "exams", label: "Exams", icon: ClipboardList },
+  { section: "homework", label: "Homework", icon: BookOpen },
+  { section: "materials", label: "Materials", icon: FileText },
+  { section: "fees", label: "Fees", icon: Wallet },
+  { section: "profile", label: "Profile", icon: User },
 ] as const;
 
 const bottomItems = [
-  { to: "/app/home", label: "Home", icon: Home },
-  { to: "/app/videos", label: "Classes", icon: PlayCircle },
-  { to: "/app/routine", label: "Routine", icon: CalendarDays },
-  { to: "/app/notices", label: "Notice", icon: Megaphone },
+  { section: "home", label: "Home", icon: Home },
+  { section: "videos", label: "Classes", icon: PlayCircle },
+  { section: "routine", label: "Routine", icon: CalendarDays },
+  { section: "notices", label: "Notice", icon: Megaphone },
 ] as const;
 
 export function StudentShell({ section, children }: { section: string; children: ReactNode }) {
@@ -54,7 +54,11 @@ export function StudentShell({ section, children }: { section: string; children:
     <div className="min-h-screen bg-background pb-24">
       <header className="sticky top-0 z-30 border-b border-border bg-card/95 backdrop-blur">
         <div className="mx-auto grid max-w-3xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-3 py-2.5">
-          <Link to="/app/home" className="flex min-w-0 items-center gap-2">
+          <Link
+            to="/app/$section"
+            params={{ section: "home" }}
+            className="flex min-w-0 items-center gap-2"
+          >
             {settings?.logo_url ? (
               <img
                 src={settings.logo_url}
@@ -73,14 +77,16 @@ export function StudentShell({ section, children }: { section: string; children:
           </Link>
           <div className="flex shrink-0 items-center gap-1">
             <Link
-              to="/app/notices"
+              to="/app/$section"
+              params={{ section: "notices" }}
               aria-label="Notices"
               className="tap-target grid place-items-center rounded-full text-muted-foreground hover:bg-muted"
             >
               <Bell className="size-5" />
             </Link>
             <Link
-              to="/app/profile"
+              to="/app/$section"
+              params={{ section: "profile" }}
               aria-label="My profile"
               className="tap-target grid place-items-center rounded-full text-muted-foreground hover:bg-muted"
             >
@@ -92,24 +98,22 @@ export function StudentShell({ section, children }: { section: string; children:
 
       <main className="mx-auto w-full max-w-3xl px-3 py-4">{children}</main>
 
-      <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-card/95 backdrop-blur safe-bottom">
+      <nav className="safe-bottom fixed inset-x-0 bottom-0 z-40 border-t border-border bg-card/95 backdrop-blur">
         <div className="mx-auto grid max-w-3xl grid-cols-5">
-          {bottomItems.map((item) => {
-            const active = section === item.to.split("/")[2];
-            return (
-              <Link
-                key={item.to}
-                to={item.to}
-                className={cn(
-                  "tap-target flex flex-col items-center justify-center gap-0.5 py-2 text-[11px] font-semibold",
-                  active ? "text-primary" : "text-muted-foreground",
-                )}
-              >
-                <item.icon className="size-5" />
-                {item.label}
-              </Link>
-            );
-          })}
+          {bottomItems.map((item) => (
+            <Link
+              key={item.section}
+              to="/app/$section"
+              params={{ section: item.section }}
+              className={cn(
+                "tap-target flex flex-col items-center justify-center gap-0.5 py-2 text-[11px] font-semibold",
+                section === item.section ? "text-primary" : "text-muted-foreground",
+              )}
+            >
+              <item.icon className="size-5" />
+              {item.label}
+            </Link>
+          ))}
           <button
             onClick={() => setMore(true)}
             className="tap-target flex flex-col items-center justify-center gap-0.5 py-2 text-[11px] font-semibold text-muted-foreground"
@@ -124,8 +128,9 @@ export function StudentShell({ section, children }: { section: string; children:
         <div className="grid grid-cols-2 gap-2">
           {moreItems.map((item) => (
             <Link
-              key={item.to}
-              to={item.to}
+              key={item.section}
+              to="/app/$section"
+              params={{ section: item.section }}
               onClick={() => setMore(false)}
               className="tap-target flex items-center gap-2 rounded-xl border border-border p-3 text-sm font-semibold hover:bg-muted"
             >

@@ -24,8 +24,6 @@ export const Route = createFileRoute("/register")({
   component: RegisterPage,
 });
 
-export default function noop() {}
-
 function RegisterPage() {
   const { data: settings } = useSettings();
   const { data: classes } = useClasses();
