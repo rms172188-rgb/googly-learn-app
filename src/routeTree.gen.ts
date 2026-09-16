@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as StaffLoginRouteImport } from './routes/staff-login'
+import { Route as AppSectionRouteImport } from './routes/app.$section'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -34,18 +35,25 @@ const StaffLoginRoute = StaffLoginRouteImport.update({
   path: '/staff-login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppSectionRoute = AppSectionRouteImport.update({
+  id: '/app/$section',
+  path: '/app/$section',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/staff-login': typeof StaffLoginRoute
+  '/app/$section': typeof AppSectionRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/staff-login': typeof StaffLoginRoute
+  '/app/$section': typeof AppSectionRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +61,15 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/staff-login': typeof StaffLoginRoute
+  '/app/$section': typeof AppSectionRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/register' | '/staff-login'
+  fullPaths: '/' | '/login' | '/register' | '/staff-login' | '/app/$section'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/register' | '/staff-login'
-  id: '__root__' | '/' | '/login' | '/register' | '/staff-login'
+  to: '/' | '/login' | '/register' | '/staff-login' | '/app/$section'
+  id:
+    '__root__' | '/' | '/login' | '/register' | '/staff-login' | '/app/$section'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +77,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
   StaffLoginRoute: typeof StaffLoginRoute
+  AppSectionRoute: typeof AppSectionRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -99,6 +110,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StaffLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app/$section': {
+      id: '/app/$section'
+      path: '/app/$section'
+      fullPath: '/app/$section'
+      preLoaderRoute: typeof AppSectionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -107,6 +125,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
   StaffLoginRoute: StaffLoginRoute,
+  AppSectionRoute: AppSectionRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
