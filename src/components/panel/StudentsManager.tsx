@@ -54,14 +54,14 @@ export function StudentsManager({ canManage }: { canManage: boolean }) {
       const { error } = await supabase
         .from("profiles")
         .update({
-          full_name: form.full_name,
-          roll: form.roll,
-          class_name: form.class_name,
-          batch: form.batch,
-          phone: form.phone,
-          guardian_name: form.guardian_name,
-          guardian_phone: form.guardian_phone,
-          address: form.address,
+          full_name: form.full_name ?? "",
+          roll: form.roll ?? null,
+          class_name: form.class_name ?? null,
+          batch: form.batch ?? null,
+          phone: form.phone ?? null,
+          guardian_name: form.guardian_name ?? null,
+          guardian_phone: form.guardian_phone ?? null,
+          address: form.address ?? null,
           active: form.active ?? true,
         })
         .eq("id", editing.id);

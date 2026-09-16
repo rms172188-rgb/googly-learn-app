@@ -47,7 +47,7 @@ export function WebsiteSettings() {
       for (const t of TOGGLES) payload[t.name] = Boolean(form[t.name]);
       payload["primary_color"] = (form["primary_color"] as string) || null;
       payload["updated_at"] = new Date().toISOString();
-      const { error } = await supabase.from("site_settings").update(payload).eq("id", 1);
+      const { error } = await supabase.from("site_settings").update(payload as never).eq("id", 1);
       if (error) throw error;
     },
     onSuccess: () => {

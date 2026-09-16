@@ -136,7 +136,7 @@ export const NOTICE_FIELDS: FieldDef[] = [
 function AdminPage() {
   const { section } = Route.useParams();
   return (
-    <RequireRole role="super_admin">
+    <RequireRole roles={["super_admin"]}>
       <PanelShell base="/admin" title="Admin Panel" section={section} items={ADMIN_NAV}>
         <AdminSection section={section} />
       </PanelShell>

@@ -63,7 +63,7 @@ const TEACHER_NAV: NavItem[] = [
 function TeacherPage() {
   const { section } = Route.useParams();
   return (
-    <RequireRole role="teacher">
+    <RequireRole roles={["teacher", "super_admin"]}>
       <PanelShell base="/teacher" title="Teacher Panel" section={section} items={TEACHER_NAV}>
         <TeacherSection section={section} />
       </PanelShell>
